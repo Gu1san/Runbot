@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    public int level;
+    int level;
     public int playerHealth;
     public int coins;
     public int totalHP;
     public int equipedGun;
+
+    [Header("Powerups")]
     public bool buffFireRate;
     public bool shieldAvaliable;
     public bool doubleGun;
@@ -18,19 +20,22 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
         {
-            instance = this;
+            Destroy(instance.gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            instance = this;
         }
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
-    void Start()
+
+    private void Start()
     {
-        instance = this;
+        level = SceneManager.GetActiveScene().buildIndex;
+        playerHealth = totalHP;
+        coins = 0;
     }
 
     public void OnHit()
@@ -67,11 +72,10 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("Menu");
         equipedGun = 0;
     }
+
     public void GameOver()
     {
         UIManager.instance.ShowGameOver();
-        level = 0;
-        coins = 0;
     }
 
     public void LoadScene()
@@ -82,6 +86,7 @@ public class GameController : MonoBehaviour
         playerHealth = totalHP;
         UIManager.instance.healthBar[playerHealth].enabled = true;
         coins = 0;
+        ResetEquipment();
     }
 
     public void NextLevel()
@@ -90,5 +95,16 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(level);
         UIManager.instance.pausePanel.SetActive(false);
         UIManager.instance.Unpause();
+    }
+
+    void ResetEquipment()
+    {
+        buffFireRate = false;
+        shieldAvaliable = false;
+        doubleGun = false;
+        foreach(GameObject icon in UIManager.instance.powerupIcons)
+        {
+            icon.SetActive(false);
+        }
     }
 }
