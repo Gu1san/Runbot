@@ -17,7 +17,10 @@ public class ItemDisplay : MonoBehaviour
     {
         nameText.text = item.name;
         description.text = item.description;
-        cost.text = item.cost.ToString();
+        if(cost != null)
+        {
+            cost.text = item.cost.ToString();
+        }
         icon.sprite = item.icon;
     }
 }
