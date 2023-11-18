@@ -66,7 +66,7 @@ public class Gun : MonoBehaviour
         {
             timerShoot = Time.time + (fireRate * 0.8f);
         }
-        Instantiate(bullet, barrel[0].transform.position, transform.rotation * Quaternion.Euler(180.0f, 0, 0));
+        Instantiate(bullet, barrel[0].transform.position, transform.rotation);
         particle[0].Play();
         shotSound.Play();
         if (dual)
@@ -77,7 +77,7 @@ public class Gun : MonoBehaviour
 
     void SecondShot()
     {
-        Instantiate(bullet, barrel[1].transform.position, transform.rotation * Quaternion.Euler(180.0f, 0, 0));
+        Instantiate(bullet, barrel[1].transform.position, transform.rotation);
         particle[1].Play();
         shotSound.Play();
     }
