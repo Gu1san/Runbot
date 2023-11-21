@@ -30,7 +30,6 @@ public class Bullet : MonoBehaviour
             {
                 enemy = other.GetComponent<Enemy>();
                 enemy.TakeDamage(damage);
-                Instantiate(particle, transform.position, transform.rotation);
                 Destroy(this.gameObject);
             }
         }
@@ -40,10 +39,13 @@ public class Bullet : MonoBehaviour
             {
                 player = other.GetComponent<Player>();
                 player.OnHit();
-                Instantiate(particle, transform.position, transform.rotation);
                 Destroy(this.gameObject);
             }
         }
     }
 
+    private void OnDestroy()
+    {
+        Instantiate(particle, transform.position, transform.rotation);
+    }
 }

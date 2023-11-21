@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour
     private GameObject bullet;
     private ParticleSystem particle;
     public AudioSource shot;
+    [SerializeField] GameObject explosion;
+    [SerializeField] Transform explosionPoint;
 
     private SpawnManager spawner;
     private float iFrame = 0.0f;
@@ -109,5 +111,10 @@ public class Enemy : MonoBehaviour
             spawner.NextWave();
         }
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(explosion, explosionPoint.position, Quaternion.identity);
     }
 }
