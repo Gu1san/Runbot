@@ -2,89 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public abstract class Gun : MonoBehaviour
 {
     public GameObject bullet;
-    [Header("Settings")]
-    public float fireRate;
-    private float timerShoot = 0.0f;
-    [SerializeField]
-    private GameObject[] barrel;
-    [SerializeField]
-    private bool automatic;
-    [SerializeField]
-    private bool dual;
-    private ParticleSystem[] particle;
-    private AudioSource shotSound;
+    [SerializeField] protected GameObject[] barrel;
+    protected ParticleSystem[] particle;
+    protected AudioSource shotSound;
+
+    [SerializeField] protected float fireRate;
+    protected float timerShoot = 0.0f;
 
     private void Start()
     {
         particle = GetComponentsInChildren<ParticleSystem>();
         shotSound = GetComponent<AudioSource>();
     }
+
     void Update()
     {
-        if (automatic)
-        {
-            if (Input.GetMouseButton(0) && (Time.time > timerShoot))
-            {
-                Shoot();
-            }
-        }
-        else if (!automatic)
-        {
-            if (!GameController.instance.doubleGun)
-            {
-                if (Input.GetMouseButtonDown(0) && (Time.time > timerShoot))
-                {
-                    Shoot();
-                }
-            }
-            else
-            {
-                if (Input.GetMouseButtonDown(1) && (Time.time > timerShoot))
-                {
-                    Shoot();
-                }
-            }
-        }  
+        Shoot();
     }
 
-    void Shoot()
-    {
-        if (!GameController.instance.buffFireRate)
-        {
-            timerShoot = Time.time + fireRate;
-        }
-        else
-        {
-            timerShoot = Time.time + (fireRate * 0.8f);
-        }
-        GameObject bullet = PoolAPI.instance.Pool.Get();
-        if (bullet != null)
-        {
-            bullet.transform.position = barrel[0].transform.position;
-            bullet.transform.rotation = bullet.transform.rotation * transform.rotation;
-            bullet.SetActive(true);
-        }
-        particle[0].Play();
-        shotSound.Play();
-        if (dual)
-        {
-            Invoke("SecondShot", fireRate / 2);
-        }
-    }
-
-    void SecondShot()
-    {
-        GameObject bullet = PoolAPI.instance.Pool.Get();
-        if (bullet != null)
-        {
-            bullet.transform.position = barrel[1].transform.position;
-            bullet.transform.rotation = bullet.transform.rotation * transform.rotation;
-            bullet.SetActive(true);
-        }
-        particle[1].Play();
-        shotSound.Play();
-    }
+    public virtual void Shoot(){}
 }

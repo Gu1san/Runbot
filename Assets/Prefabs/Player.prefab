@@ -44,16 +44,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 316554346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4017050a04c02040bfecd6e4e44715c, type: 3}
+  m_Script: {fileID: 11500000, guid: e4b4be05d430b39498ddfe1674ba9a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 4812560214230577897, guid: 4e3b420eba28d4e7b9eba832fe5ab3ff, type: 3}
-  fireRate: 0.2
+  bullet: {fileID: 783429936494896479, guid: a057d6a376b0ec348ab85b75c4655dc6, type: 3}
   barrel:
   - {fileID: 6902425265321685402}
   - {fileID: 6268637991850682593}
-  automatic: 1
-  dual: 1
+  fireRate: 0.2
 --- !u!82 &7039400004340979031
 AudioSource:
   m_ObjectHideFlags: 0
@@ -193,15 +191,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1974465051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4017050a04c02040bfecd6e4e44715c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b2d4f50eaa3ca148ab210cad1a5df8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 783429936494896479, guid: 2a29f242b1a3cf440adacef902de698d, type: 3}
-  fireRate: 0.3
   barrel:
   - {fileID: 8503769998093068781}
-  automatic: 0
-  dual: 0
+  fireRate: 0.3
 --- !u!82 &7039400003250818069
 AudioSource:
   m_ObjectHideFlags: 0
