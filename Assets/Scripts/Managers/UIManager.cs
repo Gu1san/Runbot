@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -116,5 +117,10 @@ public class UIManager : MonoBehaviour
         inGamePanel.SetActive(false);
         mainMenu.SetActive(true);
         Unpause();
+    }
+
+    public void Navigate(string scene)
+    {
+        SceneManager.LoadScene(scene);
     }
 }

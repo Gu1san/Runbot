@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8877294070550933915}
   - component: {fileID: 8877294070550933912}
+  - component: {fileID: 3104275356979213871}
+  - component: {fileID: 917324010}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -51,3 +53,33 @@ MonoBehaviour:
   buffFireRate: 0
   shieldAvaliable: 0
   doubleGun: 0
+--- !u!114 &3104275356979213871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8877294070550933913}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a45f3a37fb2ce84ba1bd87253a38d7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool: {fileID: 4812560214230577897, guid: 4e3b420eba28d4e7b9eba832fe5ab3ff, type: 3}
+  amountToPool: 40
+--- !u!114 &917324010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8877294070550933913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bbe03b1ae5fa1b4584382c8f1c686e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToInstance: {fileID: 4812560214230577897, guid: 4e3b420eba28d4e7b9eba832fe5ab3ff, type: 3}
+  collectionChecks: 1
+  maxPoolSize: 40

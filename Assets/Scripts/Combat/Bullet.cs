@@ -11,12 +11,13 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private bool enemyBullet;
     public GameObject particle;
-    void Start()
+
+    private void OnEnable()
     {
-        Destroy(gameObject, 3.0f);       
+        Invoke("DisableBullet", 3);
     }
 
-    
+
     void FixedUpdate()
     {
         transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
@@ -29,8 +30,10 @@ public class Bullet : MonoBehaviour
             if (other.CompareTag("Enemy"))
             {
                 enemy = other.GetComponent<Enemy>();
-                enemy.TakeDamage(damage);
-                Destroy(this.gameObject);
+                enemy?.TakeDamage(damage);
+                //gameObject.SetActive(false);
+                DisableBullet();
+                return;
             }
         }
         else
@@ -39,13 +42,24 @@ public class Bullet : MonoBehaviour
             {
                 player = other.GetComponent<Player>();
                 player.OnHit();
-                Destroy(this.gameObject);
+                //gameObject.SetActive(false);
+                DisableBullet();
+                return;
             }
         }
     }
 
-    private void OnDestroy()
+    void DisableBullet()
     {
+        gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        if (!gameObject.scene.isLoaded) return;
+        CancelInvoke();
         Instantiate(particle, transform.position, transform.rotation);
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        PoolAPI.instance.Pool.Release(gameObject);
     }
 }

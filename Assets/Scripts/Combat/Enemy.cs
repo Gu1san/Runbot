@@ -52,6 +52,11 @@ public class Enemy : MonoBehaviour
                 Shoot();
             }
         }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Instantiate(explosion, explosionPoint.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 
     void Walk()
@@ -66,7 +71,13 @@ public class Enemy : MonoBehaviour
             particle.Play();
             shot.Play();
             for(int i = 0; i<gun.Length; i++){
-                Instantiate(bullet, gun[i].position, gun[i].rotation * Quaternion.Euler(180.0f, 0, 0));
+                GameObject bullet = PoolAPI.instance.Pool.Get();
+                if (bullet != null)
+                {
+                    bullet.transform.position = gun[i].position;
+                    bullet.transform.rotation = gun[i].rotation * Quaternion.Euler(180.0f, 0, 0);
+                    bullet.SetActive(true);
+                }
             }
             timerShoot = Time.time + fireRate;
         }
@@ -110,11 +121,7 @@ public class Enemy : MonoBehaviour
             }
             spawner.NextWave();
         }
-        Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
         Instantiate(explosion, explosionPoint.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

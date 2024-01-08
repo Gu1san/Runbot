@@ -24,36 +24,30 @@ public class Gun : MonoBehaviour
     }
     void Update()
     {
-        if(UIManager.instance != null)
+        if (automatic)
         {
-            if (!UIManager.instance.isPaused)
+            if (Input.GetMouseButton(0) && (Time.time > timerShoot))
             {
-                if (automatic)
-                {
-                    if (Input.GetMouseButton(0) && (Time.time > timerShoot))
-                    {
-                        Shoot();
-                    }
-                }
-                else if (!automatic)
-                {
-                    if (!GameController.instance.doubleGun)
-                    {
-                        if (Input.GetMouseButtonDown(0) && (Time.time > timerShoot))
-                        {
-                            Shoot();
-                        }
-                    }
-                    else
-                    {
-                        if (Input.GetMouseButtonDown(1) && (Time.time > timerShoot))
-                        {
-                            Shoot();
-                        }
-                    }
-                }
+                Shoot();
             }
         }
+        else if (!automatic)
+        {
+            if (!GameController.instance.doubleGun)
+            {
+                if (Input.GetMouseButtonDown(0) && (Time.time > timerShoot))
+                {
+                    Shoot();
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(1) && (Time.time > timerShoot))
+                {
+                    Shoot();
+                }
+            }
+        }  
     }
 
     void Shoot()
@@ -66,7 +60,13 @@ public class Gun : MonoBehaviour
         {
             timerShoot = Time.time + (fireRate * 0.8f);
         }
-        Instantiate(bullet, barrel[0].transform.position, bullet.transform.rotation * transform.rotation);
+        GameObject bullet = PoolAPI.instance.Pool.Get();
+        if (bullet != null)
+        {
+            bullet.transform.position = barrel[0].transform.position;
+            bullet.transform.rotation = bullet.transform.rotation * transform.rotation;
+            bullet.SetActive(true);
+        }
         particle[0].Play();
         shotSound.Play();
         if (dual)
@@ -77,7 +77,13 @@ public class Gun : MonoBehaviour
 
     void SecondShot()
     {
-        Instantiate(bullet, barrel[1].transform.position, bullet.transform.rotation * transform.rotation);
+        GameObject bullet = PoolAPI.instance.Pool.Get();
+        if (bullet != null)
+        {
+            bullet.transform.position = barrel[1].transform.position;
+            bullet.transform.rotation = bullet.transform.rotation * transform.rotation;
+            bullet.SetActive(true);
+        }
         particle[1].Play();
         shotSound.Play();
     }

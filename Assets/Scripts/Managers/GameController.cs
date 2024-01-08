@@ -80,7 +80,7 @@ public class GameController : MonoBehaviour
 
     public void LoadScene()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Level4");
         level = 1;
         UIManager.instance.healthBar[playerHealth].enabled = false;
         playerHealth = totalHP;

@@ -12,6 +12,7 @@ TagManager:
   - Portal
   - Loot
   - Box
+  - Wall
   layers:
   - Default
   - TransparentFX
