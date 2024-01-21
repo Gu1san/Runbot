@@ -9,4 +9,6 @@ public class Item : ScriptableObject
     public Sprite icon;
 
     public int cost;
+
+    public virtual void OnBuy() { }
 }

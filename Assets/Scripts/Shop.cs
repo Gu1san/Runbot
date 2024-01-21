@@ -5,11 +5,26 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
+    public static Shop instance;
     public Player player;
     public GameObject shopPanel;
     public Text[] equipText;
-    public Item[] itens;
+    public List<Item> itens;
     public bool[] boughtItens;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -45,35 +60,18 @@ public class Shop : MonoBehaviour
         GameController.instance.equipedGun = id;
     }
 
-    public void Buy(int id)
+    public void Buy(Item item)
     {
-        if (!boughtItens[id])
+        if (item.cost <= GameController.instance.coins)
         {
-            if (itens[id].cost <= GameController.instance.coins)
-            {
-                GameController.instance.coins -= itens[id].cost;
-                UIManager.instance.coinsCount.text = GameController.instance.coins.ToString();
-                boughtItens[id] = true;
-                if (id == 0)
-                {
-                    GameController.instance.buffFireRate = true;
-                }
-                else if (id == 1)
-                {
-                    GameController.instance.shieldAvaliable = true;
-                }
-                else if (id == 2)
-                {
-                    GameController.instance.doubleGun = true;
-                }
-                UIManager.instance.powerupIcons[id].SetActive(true);
-            }
-            else
-            {
-                Debug.Log("Pobre");
-            }
-            
+            GameController.instance.coins -= item.cost;
+            UIManager.instance.coinsCount.text = GameController.instance.coins.ToString();
+            item.OnBuy();
+            //UIManager.instance.powerupIcons[id].SetActive(true);
         }
-        
+        else
+        {
+            Debug.Log("Pobre");
+        }
     }
 }

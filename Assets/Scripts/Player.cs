@@ -139,7 +139,8 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Box"))
         {
             Shop box = other.GetComponent<Shop>();
-            if (Input.GetKeyDown(KeyCode.E) && UIManager.instance.isPaused == false)
+            //if (Input.GetKeyDown(KeyCode.E) && UIManager.instance.isPaused == false)
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 box.ShowShop();
             }

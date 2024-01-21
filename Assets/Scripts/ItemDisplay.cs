@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +8,7 @@ public class ItemDisplay : MonoBehaviour
     public Text nameText;
     public Text description;
     public Text cost;
+    [SerializeField] Button buyButton;
 
     public Image icon;
 
@@ -22,5 +21,10 @@ public class ItemDisplay : MonoBehaviour
             cost.text = item.cost.ToString();
         }
         icon.sprite = item.icon;
+    }
+
+    public void Buy()
+    {
+        Shop.instance.Buy(item);
     }
 }
