@@ -9,16 +9,9 @@ public class Shield : MonoBehaviour
 
     private float elapsedTime = 0.0f; // Tempo acumulado desde o início
 
-    private void Update()
+    private void OnEnable()
     {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            StartCoroutine(EnableShield());
-        }
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            StartCoroutine(DisableShield());
-        }
+        StartCoroutine(EnableShield());
     }
 
     IEnumerator EnableShield()

@@ -52,11 +52,6 @@ public class Enemy : MonoBehaviour
                 Shoot();
             }
         }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            Instantiate(explosion, explosionPoint.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
     }
 
     void Walk()
